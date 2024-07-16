@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/create-next-app).
+# Next.js 15 + React 19 + Prisma + Sqlite + Shadcn-ui + Typescript
 
-## Getting Started
+终于吃上新鲜货了，项目用上了 React 19 的 `useActionState`、`useFormStatus`、`useOptimistic`新特性。Next.js 15 没有默认缓存也是好用，不用像 14 那样写一堆取消缓存的代码，才能看到效果。。除了登录因为用到了`next-auth`，使用了`api`的方式，其他的查询和请求都使用的是`action`的方式。
 
-First, run the development server:
+在 Realworld 的基础上，增加了些自己的想法：
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 给文章加了一套简单的评分系统。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 按自己的想法完全修改了原来项目的 UI 风格，增加了响应式布局。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 增加了文章的搜索功能。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load Inter, a custom Google Font.
+- 基于 Shadcn-ui 的 form 组件，增加了文章的 Media 图片上传、封装了文章的标签功能。
 
-## Learn More
+- 使用问了文本编辑器`@uiw/react-markdown-editor`作为文章的编辑器，同时使用了该编辑器自带的`Markdown`预览作为文章内容的展示。
 
-To learn more about Next.js, take a look at the following resources:
+踩坑：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Next.js 15 还是 rc 的版本，有些组件、插件的安装在项目运行时会报错，可以尝试取消项目运行，安装就可以避免一些报错的问题。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- 使用`useOptimistic`时，同一个组件的状态在页面上展示两个时，只会影响到发生交互的那个组件，其他组件的状态在刷新页面前不会更新。如：文章详情页面的关注和收藏。尽量不要在同一个页面上出现重复的组件。
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js 中的`useSearchParams`方法的`set`方法，已经废弃了，官方使用原生的`JavaScript`方法`new URLSearchParams`来操作`URL`中的`search`参数。[官方示例](https://nextjs.org/docs/app/api-reference/functions/use-search-params#updating-searchparams)
